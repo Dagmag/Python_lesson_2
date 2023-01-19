@@ -4,15 +4,60 @@
  Использовать функцию type() для проверки типа. Элементы списка можно не запрашивать у пользователя, а указать явно, в программе.
  """
 
+type_list = [9, 5.006, True, [1, 2], "Hi", {"books": "Sherlok", "Author": "KonanDoyle"}, (1, 2)]
+for i in range(len(type_list)):
+    print(f"Тип переменной в списке: {type(type_list[i])}")
+
 """2. Для списка реализовать обмен значений соседних элементов, т.е. Значениями обмениваются элементы с индексами 0 и 1, 2 и 3 и т.д. 
 При нечетном количестве элементов последний сохранить на своем месте. Для заполнения списка элементов необходимо использовать функцию input()."""
+
+element_count = int(input("Введите количество элементов списка "))
+my_list = []
+i = 0
+element = 0
+while i < element_count:
+    my_list.append(input("Введите значение списка "))
+    i += 1
+
+for elem in range(int(len(my_list) / 2)):
+    my_list[element], my_list[element + 1] = my_list[element + 1], my_list[element]
+    element += 2
+print(my_list)
 
 """3. Пользователь вводит месяц в виде целого числа от 1 до 12. Сообщить к какому времени года относится месяц (зима, весна, лето, осень). 
 Напишите решения через list и через dict."""
 
+seasons_list = ['Зима', 'Весна', 'Лето', 'Осень']
+seasons_dict = {1: 'Зима', 2: 'Весна', 3: 'Лето', 4: 'Осень'}
+month = int(input("Введите месяц по номеру "))
+if month == 12 or month == 1 or month == 2:
+    print(seasons_dict.get(1))
+    print(seasons_list[0])  # Выводим значение из списка
+elif month == 3 or month == 4 or month == 5:
+    print(seasons_dict.get(2))
+    print(seasons_list[1])
+elif month == 6 or month == 7 or month == 8:
+    print(seasons_dict.get(3))
+    print(seasons_list[2])
+
+elif month == 9 or month == 10 or month == 11:
+    print(seasons_dict.get(4))
+    print(seasons_list[3])
+else:
+    print("Такого месяца не существует")
+
 """
 4. Пользователь вводит строку из нескольких слов, разделённых пробелами. Вывести каждое слово с новой строки. 
 Строки необходимо пронумеровать. Если в слово длинное, выводить только первые 10 букв в слове."""
+
+text = input("введите предложение >>> ")
+T = text.split()
+for x, y in enumerate(T, start=1):
+    if len(y) > 11:
+        y = y[:10]
+        print(x, y)
+    else:
+        print(x, y)
 
 """5. Реализовать структуру «Рейтинг», представляющую собой не возрастающий набор натуральных чисел. 
 У пользователя необходимо запрашивать новый элемент рейтинга. Если в рейтинге существуют элементы с одинаковыми значениями, 
@@ -21,8 +66,24 @@
 Пользователь ввел число 3. Результат: 7, 5, 3, 3, 3, 2.
 Пользователь ввел число 8. Результат: 8, 7, 5, 3, 3, 2.
 Пользователь ввел число 1. Результат: 7, 5, 3, 3, 2, 1.
-
 Набор натуральных чисел можно задать непосредственно в коде, например, my_list = [7, 5, 3, 3, 2]."""
+
+my_list = [7, 5, 3, 3, 2]
+print(f"Рейтинг - {my_list}")
+digit = int(input("Введите число (Для выхода введите - 000) >>> "))
+while digit != 000:
+    for el in range(len(my_list)):
+        if my_list[el] == digit:
+            my_list.insert(el + 1, digit)
+            break
+        elif my_list[0] < digit:
+            my_list.insert(0, digit)
+        elif my_list[-1] > digit:
+            my_list.append(digit)
+        elif my_list[el] > digit > my_list[el + 1]:
+            my_list.insert(el + 1, digit)
+    print(f"текущий список - {my_list}")
+    digit = int(input("Введите число (Для выхода введите - 000) >>> "))
 
 """6. *Реализовать структуру данных «Товары». Она должна представлять собой список кортежей. Каждый кортеж хранит информацию об отдельном товаре. 
 В кортеже должно быть два элемента — номер товара и словарь с параметрами (характеристиками товара: название, цена, количество, единица измерения). 
@@ -44,3 +105,18 @@
 “количество”: [5, 2, 7],
 “ед”: [“шт.”]
 }"""
+
+q = int(input("Здравствуйте! Сколько продуктов желаете добавить в систему?\n\t Кол-во: "))
+data = "Название", "Цена", "Количество", "Ед.изм"
+products, names, prices, Quantity, uoms = [], [], [], [], []
+for i in range(q):
+    print(f"Введите характеристики для товара # {i + 1} :")
+    name, price, quantity, uom = input("\tНазвание : "), input("\tЦена товара : "), input("\tКоличество : "), input("\tЕд.изм : ")
+    products_up = (i + 1, {data[0]: name, data[1]: price, data[2]: quantity, data[3]: uom})
+    products.append(products_up)
+    names.append(products[i][1].get(data[0]))
+    prices.append(products[i][1].get(data[1]))
+    Quantity.append(products[i][1].get(data[2]))
+    uoms.append(products[i][1].get(data[3]))
+analytics = {data[0]: names, data[1]: prices, data[2]: Quantity, data[3]: uoms}
+print(f"Статистика по товарам ниже \n{analytics}")
